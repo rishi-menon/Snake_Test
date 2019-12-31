@@ -42,34 +42,38 @@ window.onload = function () {
     height = canvas.height;
     Initialise_Game ();
 
-    // document.addEventListener ("keydown", function (evt) {
+    document.addEventListener ("keydown", function (evt) {
 
-    //     if (game_over_screen == 1) {
-				// 		//game is over
-    //         switch (evt.keyCode) {
-    //           case 32:
-				// 					//space key... restart game
-    //               Initialise_Game ();
-    //               break;
-    //         }
-    //     } else {
-    //         move_player_in_dir (evt.keyCode);
-    //     }
+        if (game_over_screen == 1) {
+						//game is over
+            switch (evt.keyCode) {
+              case 32:
+									//space key... restart game
+                  Initialise_Game ();
+                  break;
+            }
+        } else {
+            move_player_in_dir (evt.keyCode);
+        }
 
-    //     // for debugging purposes
-    //     // if (evt.keyCode == 32) {
-				// //
-    //     //     main_snake.add_block ();
-    //     // }
-    //     // console.log(evt.keyCode);
-    // });
+        // for debugging purposes
+        // if (evt.keyCode == 32) {
+				//
+        //     main_snake.add_block ();
+        // }
+        // console.log(evt.keyCode);
+    });
+
+    //blahh
+
+    //pls update
 
 
     document.addEventListener ("touchstart", function (evt) {
       if (game_over_screen == 0) {
         var touch = evt.touches[0];
-        touch_start_x = evt.clientX;
-        touch_start_y = evt.clientY;
+        touch_start_x = touch.clientX;
+        touch_start_y = touch.clientY;
         // event.preventDefault();
       }
       
@@ -79,8 +83,8 @@ window.onload = function () {
       if (game_over_screen == 0) {
         var touch = evt.touches[0];
 
-        touch_move_x = evt.clientX;
-        touch_move_y = evt.clientY;
+        touch_move_x = touch.clientX;
+        touch_move_y = touch.clientY;
 
         // event.preventDefault();
       }
