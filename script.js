@@ -42,27 +42,27 @@ window.onload = function () {
     height = canvas.height;
     Initialise_Game ();
 
-    // document.addEventListener ("keydown", function (evt) {
+    document.addEventListener ("keydown", function (evt) {
 
-    //     if (game_over_screen == 1) {
-				// 		//game is over
-    //         switch (evt.keyCode) {
-    //           case 32:
-				// 					//space key... restart game
-    //               Initialise_Game ();
-    //               break;
-    //         }
-    //     } else {
-    //         move_player_in_dir (evt.keyCode);
-    //     }
+        if (game_over_screen == 1) {
+						//game is over
+            switch (evt.keyCode) {
+              case 32:
+									//space key... restart game
+                  Initialise_Game ();
+                  break;
+            }
+        } else {
+            move_player_in_dir (evt.keyCode);
+        }
 
-    //     // for debugging purposes
-    //     // if (evt.keyCode == 32) {
-				// //
-    //     //     main_snake.add_block ();
-    //     // }
-    //     // console.log(evt.keyCode);
-    // });
+        // for debugging purposes
+        // if (evt.keyCode == 32) {
+				//
+        //     main_snake.add_block ();
+        // }
+        // console.log(evt.keyCode);
+    });
 
 
     document.addEventListener ("touchstart", function (evt) {
