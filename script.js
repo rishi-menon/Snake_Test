@@ -64,6 +64,9 @@ window.onload = function () {
         // console.log(evt.keyCode);
     });
 
+    //blahhh
+    //asdddfff
+
     // document.addEventListener ("touchstart", function (evt) {
     //   if (game_over_screen == 0) {
     //     var touch = evt.touches[0];
