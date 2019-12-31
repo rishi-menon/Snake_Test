@@ -62,7 +62,7 @@ window.onload = function () {
         //     main_snake.add_block ();
         // }
         // console.log(evt.keyCode);
-    });
+    // });
 
     document.addEventListener ("touchstart", function (evt) {
       if (game_over_screen == 0) {
