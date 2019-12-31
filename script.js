@@ -27,10 +27,10 @@ var fixed_update_interval = 0;
 const dirs_size = 2;
 var dirs_list = []; //can store only next two directions
 
-var touch_start_x = -1;
-var touch_start_y = -1;
-var touch_move_x = -1;
-var touch_move_y = -1;
+var initial_x = -1;
+var initial_y = -1;
+var final_x = -1;
+var final_y = -1;
 
 const touch_min_delta = 10;
 
@@ -42,113 +42,161 @@ window.onload = function () {
     height = canvas.height;
     Initialise_Game ();
 
-    // document.addEventListener ("keydown", function (evt) {
+    document.addEventListener ("keydown", function (evt) {
 
-    //     if (game_over_screen == 1) {
-				// 		//game is over
-    //         switch (evt.keyCode) {
-    //           case 32:
-				// 					//space key... restart game
-    //               Initialise_Game ();
-    //               break;
-    //         }
-    //     } else {
-    //         move_player_in_dir (evt.keyCode);
-    //     }
+        if (game_over_screen == 1) {
+						//game is over
+            switch (evt.keyCode) {
+              case 32:
+									//space key... restart game
+                  Initialise_Game ();
+                  break;
+            }
+        } else {
+            move_player_in_dir (evt.keyCode);
+        }
 
-        // for debugging purposes
+        // // for debugging purposes
         // if (evt.keyCode == 32) {
-				//
+				
         //     main_snake.add_block ();
         // }
         // console.log(evt.keyCode);
-    // });
-
-    document.addEventListener ("touchstart", function (evt) {
-      if (game_over_screen == 0) {
-        var touch = evt.touches[0];
-        touch_start_x = touch.clientX;
-        touch_start_y = touch.clientY;
-        // event.preventDefault();
-      }
-      
     });
 
+    // document.addEventListener ("touchstart", function (evt) {
+    //   if (game_over_screen == 0) {
+    //     var touch = evt.touches[0];
+    //     touch_start_x = touch.clientX;
+    //     touch_start_y = touch.clientY;
+    //     // event.preventDefault();
+    //   }
+      
+    // });
+
+    // document.addEventListener ("touchmove", function (evt) {
+    //   if (game_over_screen == 0) {
+    //     var touch = evt.touches[0];
+
+    //     touch_move_x = touch.clientX;
+    //     touch_move_y = touch.clientY;
+
+    //     // event.preventDefault();
+    //   }
+
+    // });
+
+    // document.addEventListener ("touchend", function (evt) {
+    //   if (game_over_screen == 1) {
+    //     Initialise_Game ();
+     
+    //   } else {
+    //     //calculate swipe direction
+
+    //     var dx = 0;
+    //     var dy = 0;
+
+    //     if (touch_move_x != -1) {
+    //         dx = touch_move_x - touch_start_x;
+    //     }
+    //     if (touch_move_y != -1) {
+    //         dy = touch_move_y - touch_start_y;
+    //     }
+
+    //     if (dx != 0 || dy != 0) {
+
+    //         if (Math.abs (dx) > Math.abs (dy)) {
+    //           //turn horizontally
+
+    //           if (dx > touch_min_delta) {
+    //               //right
+    //               move_player_in_dir (68);//simulate right button press
+
+    //           } else if (dx < -1 * touch_min_delta) {
+    //               //left
+    //                move_player_in_dir (65);
+    //           }
+
+    //         } else {
+    //           //turn vertically
+
+    //           if (dy > touch_min_delta) {
+    //               //down
+    //               move_player_in_dir (83);//simulate down button press
+
+    //           } else if (dy < -1 * touch_min_delta) {
+    //               //up
+    //               move_player_in_dir (87);
+
+    //           }
+    //         }
+    //     }
+
+    //     ctx.clearRect (0, 0, width, height);
+
+    //     ctx.font = "20px Arial";
+    //     ctx.fillStyle = "#222222";
+    //     ctx.fillText(dx, 20, 25);
+    //     ctx.fillText(dx, 20, 55);
+
+    //   }
+
+    //   touch_start_x = -1;
+    //   touch_start_y = -1;
+    //   touch_move_x = -1;
+    //   touch_move_y = -1;
+
+    //   // event.preventDefault();
+
+    // }); 
+
+    document.addEventListener ("touchstart", function (evt) {
+      // // change_col ("red");
+      var touch = evt.touches[0];
+      initial_x = touch.clientX;
+      initial_y = touch.clientY;
+    });
     document.addEventListener ("touchmove", function (evt) {
-      if (game_over_screen == 0) {
-        var touch = evt.touches[0];
-
-        touch_move_x = touch.clientX;
-        touch_move_y = touch.clientY;
-
-        // event.preventDefault();
-      }
+      // change_col ("blue");
+    
+      var touch = evt.touches[0];
+      final_x = touch.clientX
+      final_y = touch.clientY;
 
     });
 
     document.addEventListener ("touchend", function (evt) {
-      if (game_over_screen == 1) {
-        Initialise_Game ();
-     
-      } else {
-        //calculate swipe direction
+      // change_col ("green");
 
-        var dx = 0;
-        var dy = 0;
+      ctx.clearRect (0, 0, canvas.width, canvas.height);
+      ctx.font = "20px Arial";
+      ctx.fillStyle = "#eeeeee";
+      
+      if (final_x != -1) {
+        if (final_x - initial_x > delta) {
+          document.body.style.background ("red");
 
-        if (touch_move_x != -1) {
-            dx = touch_move_x - touch_start_x;
+        } else if (final_x - initial_x < -1*delta) {
+          document.body.style.background ("blue");
         }
-        if (touch_move_y != -1) {
-            dy = touch_move_y - touch_start_y;
-        }
-
-        if (dx != 0 || dy != 0) {
-
-            if (Math.abs (dx) > Math.abs (dy)) {
-              //turn horizontally
-
-              if (dx > touch_min_delta) {
-                  //right
-                  move_player_in_dir (68);//simulate right button press
-
-              } else if (dx < -1 * touch_min_delta) {
-                  //left
-                   move_player_in_dir (65);
-              }
-
-            } else {
-              //turn vertically
-
-              if (dy > touch_min_delta) {
-                  //down
-                  move_player_in_dir (83);//simulate down button press
-
-              } else if (dy < -1 * touch_min_delta) {
-                  //up
-                  move_player_in_dir (87);
-
-              }
-            }
-        }
-
-        ctx.clearRect (0, 0, width, height);
-
-        ctx.font = "20px Arial";
-        ctx.fillStyle = "#222222";
-        ctx.fillText(dx, 20, 25);
-        ctx.fillText(dx, 20, 55);
-
       }
 
-      touch_start_x = -1;
-      touch_start_y = -1;
-      touch_move_x = -1;
-      touch_move_y = -1;
+      if (final_y != -1) {
+        if (final_y - initial_y > delta) {
+          document.body.style.background ("green");
 
-      // event.preventDefault();
+        } else if (final_y - initial_y < -1*delta) {
+          document.body.style.background ("yellow");
+        }     
+      }
 
-    }); 
+      initial_x = -1;
+      initial_y = -1;
+      final_x = -1;
+      final_y = -1;
+
+
+    });
 }
 
 function Initialise_Game () {
@@ -159,10 +207,10 @@ function Initialise_Game () {
 	fps = starting_fps;
 	player_score = 2;
 
-  touch_start_x = -1;
-  touch_start_y = -1;
-  touch_move_x = -1;
-  touch_move_y = -1;
+  initial_x = -1;
+  initial_y = -1;
+  final_x = -1;
+  final_y = -1;
       
   reset_food ();
 
@@ -185,7 +233,7 @@ function End_Game () {
 
 function FixedUpdate () {
     //clear screen
-    // ctx.clearRect (0, 0, width, height);
+    ctx.clearRect (0, 0, width, height);
 
 		if (game_over_screen == 1) {
 			//play death animation
