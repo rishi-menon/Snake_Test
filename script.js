@@ -42,19 +42,19 @@ window.onload = function () {
     height = canvas.height;
     Initialise_Game ();
 
-    document.addEventListener ("keydown", function (evt) {
+    // document.addEventListener ("keydown", function (evt) {
 
-        if (game_over_screen == 1) {
-						//game is over
-            switch (evt.keyCode) {
-              case 32:
-									//space key... restart game
-                  Initialise_Game ();
-                  break;
-            }
-        } else {
-            move_player_in_dir (evt.keyCode);
-        }
+    //     if (game_over_screen == 1) {
+				// 		//game is over
+    //         switch (evt.keyCode) {
+    //           case 32:
+				// 					//space key... restart game
+    //               Initialise_Game ();
+    //               break;
+    //         }
+    //     } else {
+    //         move_player_in_dir (evt.keyCode);
+    //     }
 
         // for debugging purposes
         // if (evt.keyCode == 32) {
@@ -93,18 +93,6 @@ window.onload = function () {
       } else {
         //calculate swipe direction
 
-        if (touch_move.y != -1 && touch_start.y != -1) {
- 
-          if (dy > touch_min_delta) {
-            //down
-            
-
-          } else if (dy < -touch_min_delta) {
-            //up
-             
-          }
-        }
-
         var dx = 0;
         var dy = 0;
 
@@ -129,7 +117,6 @@ window.onload = function () {
                    move_player_in_dir (65);
               }
 
-
             } else {
               //turn vertically
 
@@ -144,6 +131,13 @@ window.onload = function () {
               }
             }
         }
+
+        ctx.clearRect (0, 0, width, height);
+
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "#222222";
+        ctx.fillText(dx, 20, 25);
+        ctx.fillText(dx, 20, 55);
 
       }
 
@@ -191,7 +185,7 @@ function End_Game () {
 
 function FixedUpdate () {
     //clear screen
-    ctx.clearRect (0, 0, width, height);
+    // ctx.clearRect (0, 0, width, height);
 
 		if (game_over_screen == 1) {
 			//play death animation
