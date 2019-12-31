@@ -1,0 +1,22 @@
+/* * {
+    cursor: none;
+
+} */
+
+/*ffe080*/
+
+#myCanvas {
+	/* ABFFAB */
+    background: #ffe080;
+      
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+     /*to prevent pull down to refresh*/
+    overflow-y: hidden;
+}
+
+body {
+		background-color: #040404;
+		overflow-y: hidden;
+}
