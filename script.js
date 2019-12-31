@@ -42,30 +42,29 @@ window.onload = function () {
     height = canvas.height;
     Initialise_Game ();
 
-    document.addEventListener ("keydown", function (evt) {
+    // document.addEventListener ("keydown", function (evt) {
 
-        if (game_over_screen == 1) {
-						//game is over
-            switch (evt.keyCode) {
-              case 32:
-									//space key... restart game
-                  Initialise_Game ();
-                  break;
-            }
-        } else {
-            move_player_in_dir (evt.keyCode);
-        }
+    //     if (game_over_screen == 1) {
+				// 		//game is over
+    //         switch (evt.keyCode) {
+    //           case 32:
+				// 					//space key... restart game
+    //               Initialise_Game ();
+    //               break;
+    //         }
+    //     } else {
+    //         move_player_in_dir (evt.keyCode);
+    //     }
 
-        // // for debugging purposes
+        
+    // });
+
+    // // for debugging purposes
         // if (evt.keyCode == 32) {
-				
+        
         //     main_snake.add_block ();
         // }
         // console.log(evt.keyCode);
-    });
-
-    //blahhh
-    //asdddfff
 
     // document.addEventListener ("touchstart", function (evt) {
     //   if (game_over_screen == 0) {
@@ -178,18 +177,23 @@ window.onload = function () {
       if (final_x != -1) {
         if (final_x - initial_x > delta) {
           document.body.style.background ("red");
+          move_player_in_dir (68);//simulate right button press
 
         } else if (final_x - initial_x < -1*delta) {
           document.body.style.background ("blue");
+          move_player_in_dir (65);
         }
       }
 
       if (final_y != -1) {
         if (final_y - initial_y > delta) {
           document.body.style.background ("green");
+          move_player_in_dir (83);//simulate down button press
 
         } else if (final_y - initial_y < -1*delta) {
           document.body.style.background ("yellow");
+          move_player_in_dir (87);
+
         }     
       }
 
@@ -197,8 +201,6 @@ window.onload = function () {
       initial_y = -1;
       final_x = -1;
       final_y = -1;
-
-
     });
 }
 
