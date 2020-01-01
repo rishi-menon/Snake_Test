@@ -32,7 +32,55 @@ var initial_y = -1;
 var final_x = -1;
 var final_y = -1;
 
-const touch_min_delta = 10;
+const delta = 30;
+
+function initialise_touch () {
+    document.addEventListener ("touchstart", function (evt) {
+      var touch = evt.touches[0];
+      initial_x = touch.clientX;
+      initial_y = touch.clientY;
+
+    });
+    document.addEventListener ("touchmove", function (evt) {
+      var touch = evt.touches[0];
+      final_x = touch.clientX
+      final_y = touch.clientY;
+
+    });
+
+    document.addEventListener ("touchend", function (evt) {
+      // evt.preventDefault ();
+      
+      if (final_x - initial_x > delta && final_x != -1) {
+        // right
+        document.body.style.background = "red";
+        move_player_in_dir (68);
+
+      } else if (final_x - initial_x < -1*delta && final_x != -1) {
+        // left
+        document.body.style.background = "blue";
+        move_player_in_dir (65);
+
+      }
+
+      if (final_y - initial_y > delta && final_y != -1) {
+        // ctx.fillText("down Swipe", 20, 60);
+        document.body.style.background = "green";
+        move_player_in_dir (83);
+        
+
+      } else if (final_y - initial_y < -1*delta && final_y != -1) {
+        // up
+        document.body.style.background = "yellow";
+        move_player_in_dir (87);
+        
+      }
+      
+      final_x = -1;
+      final_y = -1;     
+
+    });
+  }
 
 
 window.onload = function () {
@@ -42,166 +90,23 @@ window.onload = function () {
     height = canvas.height;
     Initialise_Game ();
 
-    // document.addEventListener ("keydown", function (evt) {
+    document.addEventListener ("keydown", function (evt) {
 
-    //     if (game_over_screen == 1) {
-				// 		//game is over
-    //         switch (evt.keyCode) {
-    //           case 32:
-				// 					//space key... restart game
-    //               Initialise_Game ();
-    //               break;
-    //         }
-    //     } else {
-    //         move_player_in_dir (evt.keyCode);
-    //     }
-
-        
-    // });
-
-    // // for debugging purposes
-        // if (evt.keyCode == 32) {
-        
-        //     main_snake.add_block ();
-        // }
-        // console.log(evt.keyCode);
-
-    // document.addEventListener ("touchstart", function (evt) {
-    //   if (game_over_screen == 0) {
-    //     var touch = evt.touches[0];
-    //     touch_start_x = touch.clientX;
-    //     touch_start_y = touch.clientY;
-    //     // event.preventDefault();
-    //   }
-      
-    // });
-
-    // document.addEventListener ("touchmove", function (evt) {
-    //   if (game_over_screen == 0) {
-    //     var touch = evt.touches[0];
-
-    //     touch_move_x = touch.clientX;
-    //     touch_move_y = touch.clientY;
-
-    //     // event.preventDefault();
-    //   }
-
-    // });
-
-    // document.addEventListener ("touchend", function (evt) {
-    //   if (game_over_screen == 1) {
-    //     Initialise_Game ();
-     
-    //   } else {
-    //     //calculate swipe direction
-
-    //     var dx = 0;
-    //     var dy = 0;
-
-    //     if (touch_move_x != -1) {
-    //         dx = touch_move_x - touch_start_x;
-    //     }
-    //     if (touch_move_y != -1) {
-    //         dy = touch_move_y - touch_start_y;
-    //     }
-
-    //     if (dx != 0 || dy != 0) {
-
-    //         if (Math.abs (dx) > Math.abs (dy)) {
-    //           //turn horizontally
-
-    //           if (dx > touch_min_delta) {
-    //               //right
-    //               move_player_in_dir (68);//simulate right button press
-
-    //           } else if (dx < -1 * touch_min_delta) {
-    //               //left
-    //                move_player_in_dir (65);
-    //           }
-
-    //         } else {
-    //           //turn vertically
-
-    //           if (dy > touch_min_delta) {
-    //               //down
-    //               move_player_in_dir (83);//simulate down button press
-
-    //           } else if (dy < -1 * touch_min_delta) {
-    //               //up
-    //               move_player_in_dir (87);
-
-    //           }
-    //         }
-    //     }
-
-    //     ctx.clearRect (0, 0, width, height);
-
-    //     ctx.font = "20px Arial";
-    //     ctx.fillStyle = "#222222";
-    //     ctx.fillText(dx, 20, 25);
-    //     ctx.fillText(dx, 20, 55);
-
-    //   }
-
-    //   touch_start_x = -1;
-    //   touch_start_y = -1;
-    //   touch_move_x = -1;
-    //   touch_move_y = -1;
-
-    //   // event.preventDefault();
-
-    // }); 
-
-    document.addEventListener ("touchstart", function (evt) {
-      // // change_col ("red");
-      var touch = evt.touches[0];
-      initial_x = touch.clientX;
-      initial_y = touch.clientY;
-    });
-    document.addEventListener ("touchmove", function (evt) {
-      // change_col ("blue");
-    
-      var touch = evt.touches[0];
-      final_x = touch.clientX
-      final_y = touch.clientY;
-
-    });
-
-    document.addEventListener ("touchend", function (evt) {
-      // change_col ("green");
-
-      ctx.clearRect (0, 0, canvas.width, canvas.height);
-      ctx.font = "20px Arial";
-      ctx.fillStyle = "#eeeeee";
-      
-      if (final_x != -1) {
-        if (final_x - initial_x > delta) {
-          document.body.style.background ("red");
-          move_player_in_dir (68);//simulate right button press
-
-        } else if (final_x - initial_x < -1*delta) {
-          document.body.style.background ("blue");
-          move_player_in_dir (65);
+        if (game_over_screen == 1) {
+						//game is over
+            switch (evt.keyCode) {
+              case 32:
+									//space key... restart game
+                  Initialise_Game ();
+                  break;
+            }
+        } else {
+            move_player_in_dir (evt.keyCode);
         }
-      }
-
-      if (final_y != -1) {
-        if (final_y - initial_y > delta) {
-          document.body.style.background ("green");
-          move_player_in_dir (83);//simulate down button press
-
-        } else if (final_y - initial_y < -1*delta) {
-          document.body.style.background ("yellow");
-          move_player_in_dir (87);
-
-        }     
-      }
-
-      initial_x = -1;
-      initial_y = -1;
-      final_x = -1;
-      final_y = -1;
+        
     });
+
+   initialise_touch ();
 }
 
 function Initialise_Game () {
