@@ -50,30 +50,34 @@ function initialise_touch () {
 
     document.addEventListener ("touchend", function (evt) {
       // evt.preventDefault ();
-      
-      if (final_x - initial_x > delta && final_x != -1) {
-        // right
-        document.body.style.background = "red";
-        move_player_in_dir (68);
+      if (game_over_screen == 1) {
+        Initialise_Game ();
 
-      } else if (final_x - initial_x < -1*delta && final_x != -1) {
-        // left
-        document.body.style.background = "blue";
-        move_player_in_dir (65);
+      } else {
+          if (final_x - initial_x > delta && final_x != -1) {
+            // right
+            // document.body.style.background = "red";
+            move_player_in_dir (68);
 
-      }
+          } else if (final_x - initial_x < -1*delta && final_x != -1) {
+            // left
+            // document.body.style.background = "blue";
+            move_player_in_dir (65);
 
-      if (final_y - initial_y > delta && final_y != -1) {
-        // ctx.fillText("down Swipe", 20, 60);
-        document.body.style.background = "green";
-        move_player_in_dir (83);
-        
+          }
 
-      } else if (final_y - initial_y < -1*delta && final_y != -1) {
-        // up
-        document.body.style.background = "yellow";
-        move_player_in_dir (87);
-        
+          if (final_y - initial_y > delta && final_y != -1) {
+            // ctx.fillText("down Swipe", 20, 60);
+            // document.body.style.background = "green";
+            move_player_in_dir (83);
+            
+
+          } else if (final_y - initial_y < -1*delta && final_y != -1) {
+            // up
+            // document.body.style.background = "yellow";
+            move_player_in_dir (87);
+            
+          }
       }
       
       final_x = -1;
@@ -92,21 +96,20 @@ window.onload = function () {
 
     ////blahhhhhhhh
 
-    document.addEventListener ("keydown", function (evt) {
+    // document.addEventListener ("keydown", function (evt) {
 
-        if (game_over_screen == 1) {
-						//game is over
-            switch (evt.keyCode) {
-              case 32:
-									//space key... restart game
-                  Initialise_Game ();
-                  break;
-            }
-        } else {
-            move_player_in_dir (evt.keyCode);
-        }
-        
-    });
+    //     if (game_over_screen == 1) {
+				// 		//game is over
+    //         switch (evt.keyCode) {
+    //           case 32:
+				// 					//space key... restart game
+    //               Initialise_Game ();
+    //               break;
+    //         }
+    //     } else {
+    //         move_player_in_dir (evt.keyCode);
+    //     }
+    // });
 
    initialise_touch ();
 }
