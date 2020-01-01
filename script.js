@@ -90,6 +90,8 @@ window.onload = function () {
     height = canvas.height;
     Initialise_Game ();
 
+    ////blahhhhhhhh
+
     document.addEventListener ("keydown", function (evt) {
 
         if (game_over_screen == 1) {
